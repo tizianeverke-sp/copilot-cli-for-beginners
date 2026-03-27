@@ -1,3 +1,4 @@
+import datetime
 import json
 from dataclasses import dataclass, asdict
 from typing import List, Optional, TypedDict
@@ -44,6 +45,10 @@ class BookCollection:
             json.dump([asdict(b) for b in self.books], f, indent=2)
 
     def add_book(self, title: str, author: str, year: int) -> Book:
+        if year != 0:
+            current_year = datetime.date.today().year
+            if not (1 <= year <= current_year):
+                raise ValueError(f"Year must be between 1 and {current_year}, or leave blank for unknown.")
         book = Book(title=title, author=author, year=year)
         self.books.append(book)
         self.save_books()
@@ -79,6 +84,10 @@ class BookCollection:
         """Find all books where the author name contains the given string (case-insensitive)."""
         query = author.lower().strip()
         return [b for b in self.books if query in b.author.lower()]
+
+    def get_unread_books(self) -> List[Book]:
+        """Return all books that have not been marked as read."""
+        return [b for b in self.books if not b.read]
 
     def get_statistics(self, books: List[Book]) -> BookStats:
         """Return statistics for a given list of books."""

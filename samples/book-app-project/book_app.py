@@ -31,7 +31,7 @@ def handle_add():
 
     title = input("Title: ").strip()
     author = input("Author: ").strip()
-    year_str = input("Year: ").strip()
+    year_str = input("Year (blank=unknown): ").strip()
 
     try:
         year = int(year_str) if year_str else 0
@@ -59,12 +59,24 @@ def handle_find():
     show_books(books)
 
 
+def handle_unread():
+    books = collection.get_unread_books()
+    if not books:
+        print("\nNo unread books — you're all caught up!\n")
+        return
+    print("\nUnread Books:\n")
+    for index, book in enumerate(books, start=1):
+        print(f"{index}. [ ] {book.title} by {book.author} ({book.year})")
+    print()
+
+
 def show_help():
     print("""
 Book Collection Helper
 
 Commands:
   list     - Show all books
+  unread   - Show only unread books
   add      - Add a new book
   remove   - Remove a book by title
   find     - Find books by author
@@ -81,6 +93,8 @@ def main():
 
     if command == "list":
         handle_list()
+    elif command == "unread":
+        handle_unread()
     elif command == "add":
         handle_add()
     elif command == "remove":
