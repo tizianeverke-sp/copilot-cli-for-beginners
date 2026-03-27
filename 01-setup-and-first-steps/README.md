@@ -62,7 +62,7 @@ Now let's see why developers are calling this "having a senior engineer on speed
 
 ### Demo 1: Code Review in Seconds
 
-The course includes sample files with intentional code quality issues. Let's review one:
+The course includes sample files with intentional code quality issues. If you're working on your local machine and haven't already cloned the repo, please run the `git clone` command below, navigate to the `copilot-cli-for-beginners` folder, and then run the `copilot` command.
 
 ```bash
 # Clone the course repository if you're working locally and haven't already
@@ -73,13 +73,13 @@ cd copilot-cli-for-beginners
 copilot
 ```
 
-Once inside the interactive session:
+Once inside the interactive Copilot CLI session, run the following:
 
 ```
 > Review @samples/book-app-project/book_app.py for code quality issues and suggest improvements
 ```
 
-> 💡 **What's the `@`?** The `@` symbol tells Copilot CLI to read a file. You'll learn all about this in Chapter 02. For now, just copy the command exactly as shown.
+> 💡 **What's the `@` symbol used for?** The `@` symbol tells Copilot CLI to read a file. You'll learn all about this in Chapter 02. For now, just copy the command exactly as shown.
 
 ---
 
@@ -357,7 +357,7 @@ copilot --allow-all -p "Review @myfile.py for issues"
 
 ## Essential Slash Commands
 
-These commands work in interactive mode. **Start with just these four** - they cover 90% of daily use:
+These commands work in interactive mode. **Start with just these six** - they cover 90% of daily use:
 
 | Command | What It Does | When to Use |
 |---------|--------------|-------------|
@@ -375,7 +375,7 @@ That's it for getting started! As you become comfortable, you can explore additi
 <details>
 <summary>📚 <strong>Additional Commands</strong> (click to expand)</summary>
 
-> 💡 The five commands above cover a lot of what you'll do on a daily use. This reference is here for when you're ready to explore more.
+> 💡 The essential commands above cover a lot of what you'll do on a daily use. This reference is here for when you're ready to explore more.
 
 ### Agent Environment
 
@@ -402,6 +402,7 @@ That's it for getting started! As you become comfortable, you can explore additi
 | Command | What It Does |
 |---------|--------------|
 | `/diff` | Review the changes made in the current directory |
+| `/pr` | Operate on pull requests for the current branch |
 | `/review` | Run the code-review agent to analyze changes |
 | `/research` | Run deep research investigation using GitHub and web sources |
 | `/terminal-setup` | Enable multiline input support (shift+enter and ctrl+enter) |

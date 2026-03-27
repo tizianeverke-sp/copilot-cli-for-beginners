@@ -125,7 +125,7 @@ Now that you've seen MCP in action, let's set up additional servers. This sectio
 
 ## MCP Configuration File
 
-MCP servers are configured in `~/.copilot/mcp-config.json` (global) or `.copilot/mcp-config.json` (project). 
+MCP servers are configured in `~/.copilot/mcp-config.json` (user-level, applies to all projects) or `.vscode/mcp.json` (project-level, applies to just the current workspace). 
 
 ```json
 {
@@ -219,7 +219,9 @@ Context7 gives Copilot access to up-to-date documentation for popular frameworks
 }
 ```
 
-✅ **No API key required** · ✅ **No account needed** · ✅ **Your code stays local**
+- ✅ **No API key required** 
+- ✅ **No account needed** 
+- ✅ **Your code stays local**
 
 Add this to your `~/.copilot/mcp-config.json` and restart Copilot.
 
@@ -231,13 +233,40 @@ Add this to your `~/.copilot/mcp-config.json` and restart Copilot.
 
 These are optional extras for when you're comfortable with the core servers above.
 
-### Building a Custom MCP Server
+### Microsoft Learn MCP Server
 
-Want to connect Copilot to your own APIs, databases, or internal tools? You can build a custom MCP server in Python. This is completely optional since the pre-built servers (GitHub, filesystem, Context7) cover most use cases.
+Every MCP server you've seen so far (filesystem, Context7) runs locally on your machine. But MCP servers can also run remotely, meaning you just point Copilot CLI at a URL and it handles the rest. No `npx` or `python`, no local process, no dependencies to install.
 
-📖 See the [Custom MCP Server Guide](mcp-custom-server.md) for a complete walkthrough using the book app as an example.
+The [Microsoft Learn MCP Server](https://github.com/microsoftdocs/mcp) is a good example. It gives Copilot CLI direct access to official Microsoft documentation (Azure, Microsoft Foundry and other AI topics, .NET, Microsoft 365, and much more) so it can search docs, fetch full pages, and find official code samples instead of relying on a model's training data.
 
-📚 For more background, see the [MCP for Beginners course](https://github.com/microsoft/mcp-for-beginners).
+- ✅ **No API key required** 
+- ✅ **No account needed** 
+- ✅ **No local install required**
+
+**Quick install with `/plugin install`:**
+
+Instead of editing your JSON config file manually, you can install it in one command:
+
+```bash
+copilot
+
+> /plugin install microsoftdocs/mcp
+```
+
+This adds the server and its associated agent skills automatically. The skills installed include:
+
+- **microsoft-docs**: Concepts, tutorials, and factual lookups
+- **microsoft-code-reference**: API lookups, code samples, and troubleshooting
+- **microsoft-skill-creator**: A meta-skill for generating custom skills about Microsoft technologies
+
+**Usage:**
+```bash
+copilot
+
+> What's the recommended way to deploy a Python app to Azure App Service? Search Microsoft Learn.
+```
+
+📚 Learn more: [Microsoft Learn MCP Server overview](https://learn.microsoft.com/training/support/mcp-get-started)
 
 ### Web Access with `web_fetch`
 
@@ -266,6 +295,14 @@ copilot
 
 > Fetch and summarize the README from https://github.com/facebook/react
 ```
+
+### Building a Custom MCP Server
+
+Want to connect Copilot to your own APIs, databases, or internal tools? You can build a custom MCP server in Python. This is completely optional since the pre-built servers (GitHub, filesystem, Context7) cover most use cases.
+
+📖 See the [Custom MCP Server Guide](mcp-custom-server.md) for a complete walkthrough using the book app as an example.
+
+📚 For more background, see the [MCP for Beginners course](https://github.com/microsoft/mcp-for-beginners).
 
 </details>
 
@@ -296,7 +333,7 @@ Here's a full `mcp-config.json` with filesystem and Context7 servers:
 }
 ```
 
-Save this as `~/.copilot/mcp-config.json` for global access or `.copilot/mcp-config.json` for project-specific configuration.
+Save this as `~/.copilot/mcp-config.json` for global access or `.vscode/mcp.json` for project-specific configuration.
 
 ---
 
@@ -317,7 +354,7 @@ Now that you have MCP servers configured, let's see what they can do.
 | GitHub repos, issues, and PRs | [GitHub Server](#github-server-built-in) |
 | Browsing project files | [Filesystem Server Usage](#filesystem-server-usage) |
 | Library documentation lookup | [Context7 Server Usage](#context7-server-usage) |
-| Custom server and web_fetch usage | [Beyond the Basics Usage](#beyond-the-basics-usage) |
+| Custom server, Microsoft Learn MCP and web_fetch usage | [Beyond the Basics Usage](#beyond-the-basics-usage) |
 
 <details>
 <summary><strong>GitHub Server (Built-in)</strong> - Access repos, issues, PRs, and more</summary>
@@ -475,8 +512,15 @@ Best practices:
 ```bash
 copilot
 
-> Look up information about "1984" using the book lookup server
-> Search for books by George Orwell
+> Look up information about "1984" using the book lookup server. Search for books by George Orwell
+```
+
+**Microsoft Learn MCP**: If you installed the [Microsoft Learn MCP server](#microsoft-learn-mcp-server), you can look up official Microsoft documentation directly:
+
+```bash
+copilot
+
+> How do I configure managed identity for an Azure Function? Search Microsoft Learn.
 ```
 
 **Web Fetch**: Use the built-in `web_fetch` tool to pull in content from any URL:
@@ -796,7 +840,7 @@ Ready to go deeper? Follow the [Custom MCP Server Guide](mcp-custom-server.md) t
 | Mistake | What Happens | Fix |
 |---------|--------------|-----|
 | Not knowing GitHub MCP is built-in | Trying to install/configure it manually | GitHub MCP is included by default. Just try: "List the recent commits in this repo" |
-| Looking for config in wrong location | Can't find or edit MCP settings | Config is in `~/.copilot/mcp-config.json` |
+| Looking for config in wrong location | Can't find or edit MCP settings | User-level config is in `~/.copilot/mcp-config.json`, project-level is `.vscode/mcp.json` |
 | Invalid JSON in config file | MCP servers fail to load | Use `/mcp show` to check configuration; validate JSON syntax |
 | Forgetting to authenticate MCP servers | "Authentication failed" errors | Some MCPs need separate auth. Check each server's requirements |
 

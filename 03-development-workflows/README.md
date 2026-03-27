@@ -571,7 +571,7 @@ copilot
 
 <a id="workflow-5-git-integration"></a>
 <details>
-<summary><strong>Workflow 5: Git Integration</strong> - Commit messages, PR descriptions, /delegate, and /diff</summary>
+<summary><strong>Workflow 5: Git Integration</strong> - Commit messages, PR descriptions, /pr, /delegate, and /diff</summary>
 
 <img src="images/git-integration-swimlane-single.png" alt="Git Integration workflow: stage changes, generate message, commit, create PR." width="800"/>
 
@@ -635,6 +635,16 @@ Include:
 - Why these changes were made
 - Testing done
 - Breaking changes? (yes/no)"
+```
+
+### Using /pr in Interactive Mode for the Current Branch
+
+If you're working with a branch in Copilot CLI's interactive mode, you can use the `/pr` command to work with pull requests. Use `/pr` to view a PR, create a new PR, fix an existing PR, or let Copilot CLI auto-decide based on the branch state.
+
+```bash
+copilot
+
+> /pr [view|create|fix|auto]
 ```
 
 ### Review Before Push

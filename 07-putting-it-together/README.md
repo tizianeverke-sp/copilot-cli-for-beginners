@@ -92,7 +92,10 @@ copilot
 # Review the changes
 > /review
 
-# If review passes, generate a PR (uses GitHub MCP covered earlier in the course)
+# If review passes, use /pr to operate on the pull request for the current branch
+> /pr [view|create|fix|auto]
+
+# Or ask naturally if you want Copilot to draft it from the terminal
 > Create a pull request titled "Feature: Add list unread books command"
 ```
 
